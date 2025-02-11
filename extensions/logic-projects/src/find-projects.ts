@@ -8,7 +8,6 @@ export const findProjects = (): Promise<LogicProject[]> => {
   const location = getPreferenceValues<Preferences>()["projects-location"];
   const execAsync = promisify(exec);
   return execAsync(
-    // `ls -A1 ${path} | grep .logicx`
     `find ${location} -regex ".*\\.\\(logicx\\)" | head -n 200 | xargs -I{} stat -f "%N,%m" "{}"`,
   )
     .then((result) => {
